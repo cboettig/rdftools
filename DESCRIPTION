@@ -6,10 +6,12 @@ Authors@R: c(person("Carl", "Boettiger",
                   email = "cboettig@gmail.com", 
                   role = c("aut", "cre", "cph"),
                   comment = c(ORCID = "0000-0002-1642-628X")))
-Description: Utilities to format data.frames and lists into
-    the Resource Description Framework (RDF) model as nquads
-    using common R functions.  Also includes experimental 
-    DSL for constructing SPARQL queries with dplyr-style verbs.
+Description: The Resource Description Framework (RDF) model is a 
+    flexible W3C standard that can express nearly and type of data.
+    This package provides simple utilities which can quickly format
+    R data frames and lists into the RDF data model following the
+    N-Quads serialization.  Such files can then be read into standard
+    RDF databases such as Virtuoso or the rdflib R package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -27,5 +29,7 @@ Suggests:
     rmarkdown,
     testthat,
     covr,
-    jsonld
+    jsonld,
+    spelling
 VignetteBuilder: knitr
+Language: en-US

@@ -13,8 +13,11 @@ status](https://www.r-pkg.org/badges/version/rdftools)](https://cran.r-project.o
 
 # rdftools
 
-:package: Common utilities for RDF. Package has helper routines only,
-limited stand-alone use.
+:package: Common utilities for RDF. Currently the package merely
+provides a `write_nquads` S3 method for `data.frame` and `list` objects
+to coerce them into the [N-Quads
+format](https://en.wikipedia.org/wiki/N-Triples#N-Quads). Additional
+utilities may be added at a later date.
 
 ## Installation
 
