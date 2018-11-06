@@ -1,0 +1,31 @@
+Package: rdftools
+Type: Package
+Title: Common tools for RDF data
+Version: 0.1.0
+Authors@R: c(person("Carl", "Boettiger", 
+                  email = "cboettig@gmail.com", 
+                  role = c("aut", "cre", "cph"),
+                  comment = c(ORCID = "0000-0002-1642-628X")))
+Description: Utilities to format data.frames and lists into
+    the Resource Description Framework (RDF) model as nquads
+    using common R functions.  Also includes experimental 
+    DSL for constructing SPARQL queries with dplyr-style verbs.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    utils,
+    dplyr,
+    tidyr,
+    jsonlite,
+    stringi,
+    stats,
+    rlang
+RoxygenNote: 6.1.0
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat,
+    covr,
+    jsonld
+VignetteBuilder: knitr

@@ -1,0 +1,11 @@
+^CODE_OF_CONDUCT\.md$
+^appveyor\.yml$
+^docs$
+^_pkgdown\.yml$
+^codecov\.yml$
+^\.travis\.yml$
+^LICENSE\.md$
+^README\.Rmd$
+^.*\.Rproj$
+^\.Rproj\.user$
+^vignettes/articles$
