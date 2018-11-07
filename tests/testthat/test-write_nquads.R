@@ -12,7 +12,7 @@ test_that("We can write nquads from a data frame", {
 test_that("We can write nquads from a list", {
   tmp <- tempfile(fileext = ".nq")
   x <- list(A1 = list(B = 1, C = 2), A2 = "bob")
-  write_nquads(x, tmp, prefix = "x")
+  write_nquads(x, tmp)
   expect_true(file.exists(tmp))
 })
 

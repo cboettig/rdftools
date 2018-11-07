@@ -2,7 +2,7 @@ context("dplyr-like DSL")
 
 
 
-test_that("we can construct some sparql select and fitler operations",{
+test_that("we can construct some sparql select and fitler operations", {
 
 
   query <-
@@ -18,7 +18,8 @@ test_that("we can construct some sparql select and fitler operations",{
 
   query <-
     sparql_op() %>%
-    select.vos(package = "name", "license", "author.familyName", "author.givenName",
+    select.vos(package = "name", "license",
+               "author.familyName", "author.givenName",
                co = "author.familyName",
                prefix = "http://schema.org/") %>%
     filter.vos( author.givenName == "Carl",
@@ -28,7 +29,6 @@ test_that("we can construct some sparql select and fitler operations",{
 
   expect_is(query, "sparql")
   expect_output(print(query), "SELECT")
-
-  predicate_filter("license", prefix = "schema:")
+  predicate_filter("license.url", prefix = "schema:")
 
 })

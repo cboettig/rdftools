@@ -18,8 +18,13 @@ sparql_select <- function(..., prefix = NULL, na.rm = TRUE){
 }
 
 
-sparql_op <- function(select = character(), where = character(), from = character()){
-  structure(list(select = select, where = where, from = from), class = c("vos"))
+sparql_op <- function(select = character(),
+                      where = character(),
+                      from = character()){
+  structure(list(select = select,
+                 where = where,
+                 from = from),
+            class = c("sparql_op"))
 }
 
 #' @importFrom stats na.omit setNames
@@ -27,7 +32,8 @@ combine_ops <- function(...){
   dots <- list(...)
   keys <- unique(unlist(lapply(dots, names)))
   out <- setNames(do.call(mapply, c(FUN = c, lapply(dots, `[`, keys))), keys)
-  structure(lapply(out, function(x) as.character(unique(na.omit(x)))),class = c("vos"))
+  structure(lapply(out, function(x)
+    as.character(unique(na.omit(x)))),class = c("sparql_op"))
 }
 
 
@@ -65,12 +71,7 @@ optional <- function(where) paste("OPTIONAL {", where, "}")
 print.sparql <- function(x, ...) cat(format(x, ...), sep = "\n")
 format.sparql <- function (x, ...)
 {
-  if (length(x) == 0) {
-    paste0("<SPARQL> [empty]")
-  }
-  else {
     paste0("<SPARQL> ", x)
-  }
 }
 
 
@@ -83,7 +84,10 @@ format.sparql <- function (x, ...)
 ## DEVELOPER NOTE: Replaced by generalized version build_filter
 ## go from "name" to "?s <name> ?name"
 #' @importFrom stringi stri_split_fixed
-predicate_filter <- function(predicate, subject = "s", prefix = NULL, query = NULL){
+predicate_filter <- function(predicate,
+                             subject = "s",
+                             prefix = NULL,
+                             query = NULL){
 
   p <- stringi::stri_split_fixed(predicate, pattern = ".", n = 2)[[1]]
   predicate <- p[[1]]

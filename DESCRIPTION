@@ -13,6 +13,8 @@ Description: The Resource Description Framework (RDF) model is a
     N-Quads serialization.  Such files can then be read into standard
     RDF databases such as Virtuoso or the rdflib R package.
 License: MIT + file LICENSE
+URL: http://github.com/cboettig/rdftools
+BugReports: http://github.com/cboettig/rdftools/issues
 Encoding: UTF-8
 LazyData: true
 Imports: 

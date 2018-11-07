@@ -144,7 +144,10 @@ poor_mans_nquads <- function(x, file, prefix, ...){
   needs_type <- !is.na(x$datatype)
 
   ## URIs that are not blank nodes need <>
-  x$subject[!blank_subject] <- paste0("<", prefix, x$subject[!blank_subject], ">")
+  x$subject[!blank_subject] <- paste0("<",
+                                      prefix,
+                                      x$subject[!blank_subject],
+                                      ">")
   ## Predicate is always a URI
   x$predicate <- paste0("<", prefix, x$predicate, ">")
 
@@ -169,7 +172,8 @@ poor_mans_nquads <- function(x, file, prefix, ...){
 
   ## drop datatype
   x <- x[c("subject", "predicate", "object", "graph")]
-  utils::write.table(x, file, col.names = FALSE, quote = FALSE, row.names = FALSE)
+  utils::write.table(x, file, col.names = FALSE,
+                     quote = FALSE, row.names = FALSE)
 }
 
 
