@@ -1,6 +1,6 @@
 
 
-filter.vos <- function(op, ..., prefix = NULL){
+filter <- function(op, ..., prefix = NULL){
   combine_ops(op,
               sparql_filter(..., prefix = prefix))
 }

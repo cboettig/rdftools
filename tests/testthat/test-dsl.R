@@ -7,8 +7,8 @@ test_that("we can construct some sparql select and fitler operations", {
 
   query <-
     sparql_op() %>%
-    select.vos("identifier", "license", prefix = "http://schema.org/") %>%
-    filter.vos(author.familyName == "Boettiger",
+    select("identifier", "license", prefix = "http://schema.org/") %>%
+    filter(author.familyName == "Boettiger",
                author.givenName == "Carl",
                prefix = "http://schema.org/") %>%
     sparql_build(na.rm = FALSE)
@@ -18,11 +18,11 @@ test_that("we can construct some sparql select and fitler operations", {
 
   query <-
     sparql_op() %>%
-    select.vos(package = "name", "license",
+    select(package = "name", "license",
                "author.familyName", "author.givenName",
                co = "author.familyName",
                prefix = "http://schema.org/") %>%
-    filter.vos( author.givenName == "Carl",
+    filter( author.givenName == "Carl",
                 author.familyName == "Boettiger",
                 prefix = "http://schema.org/") %>%
     sparql_build()
