@@ -1,7 +1,7 @@
 
 
 
-select.sparql_op <- function(op, ..., prefix = NULL, na.rm = TRUE){
+select <- function(op, ..., prefix = NULL, na.rm = TRUE){
   combine_ops(op,
               sparql_select(..., prefix = prefix, na.rm = na.rm))
 }
