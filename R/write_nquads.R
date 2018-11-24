@@ -4,15 +4,34 @@
 #' @param file output filename
 #' @param prefix URI prefix that should be used to identify column names.
 #' Can be of the form "http://schema.org/", or "iris:".
+#' @param compress Compress nquads with gzip? (Very effective for large
+#' files. Note that Virtuoso and other parsers can read compressed files
+#' directly.)
 #' @param ... additional parameters, see examples
 #'
 #' @export
 #'
 #' @examples
-#' tmp <- tempfile(fileext = ".nq")
+#' iris_file <- tempfile(fileext = ".nq.gz")
 #' library(datasets)
-#' write_nquads(iris, tmp)
-write_nquads <- function(x, file, prefix = NULL, ...){
+#' write_nquads(iris, iris_file, compress = TRUE)
+#'
+#' # Use key_column to indicate that a column should be treated
+#' # as the primary key.  This column is then prefixed (if not
+#' # already a URI) and used as the subject for the corresponding
+#' # rows.
+#' car_file <- tempfile(fileext = ".nq")
+#' mtcars$model <- rownames(mtcars)
+#' mtcars$car_id <- 1:length(mtcars[[1]])
+#' write_nquads(mtcars,
+#'              car_file,
+#'              prefix = "mtcars",
+#'              key_column = "car_id")
+write_nquads <- function(x,
+                         file,
+                         prefix = NULL,
+                         compress = FALSE,
+                         ...){
   UseMethod("write_nquads")
 }
 
@@ -27,7 +46,11 @@ write_nquads <- function(x, file, prefix = NULL, ...){
 
 
 #' @export
-write_nquads.data.frame <- function(x, file, prefix = NULL, ...){
+write_nquads.data.frame <- function(x,
+                                    file,
+                                    prefix = NULL,
+                                    compress = FALSE,
+                                    ...){
 
   if (is.null(prefix)) {
     prefix <- paste0(deparse(substitute(x)), ":")
@@ -35,13 +58,30 @@ write_nquads.data.frame <- function(x, file, prefix = NULL, ...){
   }
   prefix <- uri_prefix(prefix)
 
+  if(compress){
+    file <- gzfile(file, open = "wb")
+  }
+
   df <- normalize_table(x, ...)
-  poor_mans_nquads(df, file = file, prefix = prefix, ...)
+  poor_mans_nquads(df,
+                   file = file,
+                   prefix = prefix,
+                   ...)
 }
+
+
 
 #' @export
 #' @importFrom jsonlite toJSON
-write_nquads.list  <- function(x, file, prefix = NULL, ...){
+write_nquads.list  <- function(x,
+                               file,
+                               prefix = NULL,
+                               compress = FALSE,
+                               ...){
+
+  if(compress){
+    file <- gzfile(file, open = "wb")
+  }
 
   ## Avoid a hard dependency on jsonld package
   if (!requireNamespace("jsonld", quietly = TRUE)) {
@@ -58,9 +98,9 @@ write_nquads.list  <- function(x, file, prefix = NULL, ...){
   }
   prefix <- uri_prefix(prefix)
 
+  ## Handle compression
 
-  ##
-  # if (length(x) == 1) x <- x[[1]]
+
 
   json <- jsonlite::toJSON(x, auto_unbox = TRUE, force = TRUE)
 
@@ -74,6 +114,7 @@ write_nquads.list  <- function(x, file, prefix = NULL, ...){
 
   options <- list(base = getOption("rdf_base_uri", "rdf://"),
                  format = "application/nquads")
+
   writeLines(jsonld_to_rdf(jsonld, options = options),
              file)
 }
