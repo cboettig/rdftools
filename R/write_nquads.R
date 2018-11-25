@@ -214,8 +214,8 @@ table_to_nquads <- function(x, file, prefix, graph = ".", ...){
 
   ## assumes datatype is not empty (e.g. string)
   needs_type <- !is.na(x$datatype)
-  x$object[needs_type] <- paste0('\"', x$object[needs_type],
-                                  '\"^^<', x$datatype[needs_type], ">")
+  x$object[needs_type] <- paste0(x$object[needs_type],
+                                 '^^<', x$datatype[needs_type], ">")
 
 
   ## drop datatype column now
