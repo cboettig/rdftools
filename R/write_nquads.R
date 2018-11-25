@@ -209,7 +209,7 @@ table_to_nquads <- function(x, file, prefix, graph = ".", ...){
   x <- uri_table(x, prefix)
 
   ## quads format needs a graph column
-  if (is.null(x$graph)) x$graph <- graph
+  if (! "graph" %in% names(x)) x$graph <- graph
 
   ## assumes datatype is not empty (e.g. string)
   needs_type <- !is.na(x$datatype)
