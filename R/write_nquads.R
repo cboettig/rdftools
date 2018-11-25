@@ -67,9 +67,11 @@ write_nquads.data.frame <- function(x,
                    file = file,
                    prefix = prefix,
                    ...)
-}
+  if(compress)
+    close(file)
 
-uri_format
+  invisible(file)
+}
 
 #' @export
 #' @importFrom jsonlite toJSON
