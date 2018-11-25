@@ -30,7 +30,7 @@
 write_nquads <- function(x,
                          file,
                          prefix = NULL,
-                         compress = FALSE,
+                         compress = grepl("[.]gz$", file),
                          ...){
   UseMethod("write_nquads")
 }

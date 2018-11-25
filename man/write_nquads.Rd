@@ -4,7 +4,8 @@
 \alias{write_nquads}
 \title{write object out as nquads}
 \usage{
-write_nquads(x, file, prefix = NULL, compress = FALSE, ...)
+write_nquads(x, file, prefix = NULL, compress = grepl("[.]gz$", file),
+  ...)
 }
 \arguments{
 \item{x}{an object that can be represented as nquads}
