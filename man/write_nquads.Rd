@@ -27,7 +27,7 @@ write object out as nquads
 \examples{
 iris_file <- tempfile(fileext = ".nq.gz")
 library(datasets)
-write_nquads(iris, iris_file, compress = TRUE)
+write_nquads(iris, iris_file)
 
 # Use key_column to indicate that a column should be treated
 # as the primary key.  This column is then prefixed (if not
