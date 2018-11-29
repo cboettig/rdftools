@@ -191,8 +191,8 @@ uri_table <- function(df, prefix){
 
   ## strings and URIs do not get a datatype
   is_uri_object <- grepl("^<*\\w+:/*\\w.*>*$", df$object)
-  ## Strings should be quoted, if not already
-  quoted <- grepl('^[\"\']', df$object)
+  ## Strings should be quoted, if not fully quoted already
+  quoted <- grepl('^[\"\'].*[\"\']$', df$object)
   is_string <- !is_uri_object & !blank_object & !quoted
   df$object[is_string] <- paste0('\"', df$object[is_string] , '\"')
 
