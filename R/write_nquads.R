@@ -207,7 +207,12 @@ uri_table <- function(df, prefix){
 
 ## x is a data.frame with columns: subject, predicate, object, & datatype
 #' @importFrom utils write.table
-table_to_nquads <- function(x, file, prefix, graph = ".", ...){
+table_to_nquads <- function(x,
+                            file,
+                            prefix,
+                            graph = ".",
+                            omit_header = FALSE,
+                            ...){
 
   x <- uri_table(x, prefix)
 
@@ -225,8 +230,12 @@ table_to_nquads <- function(x, file, prefix, graph = ".", ...){
 
   ## write table is a little slow, ~ 1s on 800K triples,
   ## but readr cannot write in nquads style
-  utils::write.table(x, file, col.names = FALSE,
-                     quote = FALSE, row.names = FALSE)
+  utils::write.table(x,
+                     file,
+                     col.names = !omit_header,
+                     append = omit_header,
+                     quote = FALSE,
+                     row.names = FALSE)
 }
 
 
