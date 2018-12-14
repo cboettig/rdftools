@@ -18,5 +18,5 @@ stream_nq <-
 ## Use arkdb to stream a database connection into nquads:
 
 
-# No
+# Need to create a db with normalize_table(data) in it.
 ark(db, ".", lines = 50000, streamable_table = stream_nq,  compress = "none")
