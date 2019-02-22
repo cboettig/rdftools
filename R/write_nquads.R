@@ -228,12 +228,15 @@ table_to_nquads <- function(x,
   ## drop datatype column now
   x <- x[c("subject", "predicate", "object", "graph")]
 
+  ## drop column names before writing
+  colnames(x) <- NULL
+
   ## write table is a little slow, ~ 1s on 800K triples,
   ## but readr cannot write in nquads style
   utils::write.table(x,
                      file,
-                     col.names = !omit_header,
-                     append = omit_header,
+                     col.names = !omit_header, # for arkdb streaming only?
+                     append = omit_header,     # for arkdb streaming only?
                      quote = FALSE,
                      row.names = FALSE)
 }
